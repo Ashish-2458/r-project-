@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycle Tracker | Menstrual Health Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1000px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .calendar-container {
+            padding: 20px;
+        }
+        .month-card {
+            margin-bottom: 30px;
+        }
+        .month-header {
+            background-color: #f8d7da;
+            color: #721c24;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            padding: 10px;
+        }
+        .day-name {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px 0;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .calendar-day {
+            height: 60px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 1px solid #dee2e6;
+            position: relative;
+        }
+        .calendar-day span {
+            font-size: 1.2rem;
+        }
+        .period-day {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .fertile-day {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        .ovulation-day {
+            background-color: #8fd9d2;
+            color: #0f5964;
+            border: 2px solid #0f5964;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            margin-right: 8px;
+        }
+        .legend-period {
+            background-color: #f8d7da;
+        }
+        .legend-fertile {
+            background-color: #d1ecf1;
+        }
+        .legend-ovulation {
+            background-color: #8fd9d2;
+            border: 2px solid #0f5964;
+        }
+        .navbar {
+            padding: 1rem;
+            background-color: #f8d7da;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #721c24;
+        }
+        .nav-link {
+            color: #721c24;
+            margin: 0 10px;
+        }
+        .nav-link:hover {
+            color: #a73c45;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">🩺 Menstrual Health Tool</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/tracker">Cycle Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis">Data Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/resources">Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1>📅 Menstrual Cycle Calendar</h1>
+            <p class="lead">Track your cycle, fertility window, and ovulation days</p>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form id="calendar-form" class="mb-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-3">
+                            <label for="last_period_date" class="form-label">Last Period Start Date</label>
+                            <input type="date" class="form-control" id="last_period_date" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cycle_length" class="form-label">Cycle Length (days)</label>
+                            <input type="number" class="form-control" id="cycle_length" min="21" max="35" value="28" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="period_length" class="form-label">Period Length (days)</label>
+                            <input type="number" class="form-control" id="period_length" min="3" max="7" value="5" required>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="button" class="btn btn-primary w-100" id="generate-calendar">Generate Calendar</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color legend-period"></div>
+                        <span>Period Days</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-fertile"></div>
+                        <span>Fertile Window</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-ovulation"></div>
+                        <span>Ovulation Day</span>
+                    </div>
+                </div>
+
+                <div id="calendar-container" class="calendar-container">
+                    <!-- Calendar will be generated here -->
+                    <div class="text-center text-muted py-5">
+                        <p>Enter your last period date and cycle information above, then click "Generate Calendar" to see your personalized cycle tracker.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4>Understanding Your Cycle Calendar</h4>
+                <p>This calendar helps you visualize your menstrual cycle and fertility window for the next 3 months. Here's what the different colors mean:</p>
+                <ul>
+                    <li><strong>Red (Period Days):</strong> The days you can expect to be menstruating.</li>
+                    <li><strong>Light Blue (Fertile Window):</strong> The 5-6 days when you're most likely to conceive if you have unprotected sex.</li>
+                    <li><strong>Teal (Ovulation Day):</strong> The day when your ovary releases an egg. This is typically your most fertile day.</li>
+                </ul>
+                <p class="alert alert-info">
+                    <strong>Note:</strong> This calendar provides an estimate based on average cycle patterns. Your actual cycle may vary. For the most accurate tracking, record your symptoms and period dates consistently.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('generate-calendar').addEventListener('click', function() {
+            // This would ideally call an API endpoint to generate the calendar
+            // For now, we'll display a placeholder calendar
+            
+            const calendarContainer = document.getElementById('calendar-container');
+            calendarContainer.innerHTML = `
+                <div class="alert alert-success">
+                    Calendar generated based on your input! In a complete implementation, this would show your actual predicted cycle.
+                </div>
+                
+                <!-- Example Month 1 -->
+                <div class="month-card">
+                    <div class="month-header">
+                        May 2023
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="day-name">Sun</div>
+                        <div class="day-name">Mon</div>
+                        <div class="day-name">Tue</div>
+                        <div class="day-name">Wed</div>
+                        <div class="day-name">Thu</div>
+                        <div class="day-name">Fri</div>
+                        <div class="day-name">Sat</div>
+                        
+                        <!-- Example days -->
+                        <div class="calendar-day"><span>1</span></div>
+                        <div class="calendar-day"><span>2</span></div>
+                        <div class="calendar-day"><span>3</span></div>
+                        <div class="calendar-day"><span>4</span></div>
+                        <div class="calendar-day"><span>5</span></div>
+                        <div class="calendar-day period-day"><span>6</span></div>
+                        <div class="calendar-day period-day"><span>7</span></div>
+                        <div class="calendar-day period-day"><span>8</span></div>
+                        <div class="calendar-day period-day"><span>9</span></div>
+                        <div class="calendar-day period-day"><span>10</span></div>
+                        <div class="calendar-day"><span>11</span></div>
+                        <div class="calendar-day"><span>12</span></div>
+                        <div class="calendar-day"><span>13</span></div>
+                        <div class="calendar-day"><span>14</span></div>
+                        <div class="calendar-day"><span>15</span></div>
+                        <div class="calendar-day"><span>16</span></div>
+                        <div class="calendar-day"><span>17</span></div>
+                        <div class="calendar-day"><span>18</span></div>
+                        <div class="calendar-day fertile-day"><span>19</span></div>
+                        <div class="calendar-day fertile-day"><span>20</span></div>
+                        <div class="calendar-day ovulation-day"><span>21</span></div>
+                        <div class="calendar-day"><span>22</span></div>
+                        <div class="calendar-day"><span>23</span></div>
+                        <div class="calendar-day"><span>24</span></div>
+                        <div class="calendar-day"><span>25</span></div>
+                        <div class="calendar-day"><span>26</span></div>
+                        <div class="calendar-day"><span>27</span></div>
+                        <div class="calendar-day"><span>28</span></div>
+                        <div class="calendar-day"><span>29</span></div>
+                        <div class="calendar-day"><span>30</span></div>
+                        <div class="calendar-day"><span>31</span></div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html> 

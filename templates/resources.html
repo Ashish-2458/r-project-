@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Resources | Menstrual Health Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1000px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #f8d7da;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .resource-icon {
+            font-size: 2.5rem;
+            color: #d63384;
+            margin-bottom: 15px;
+        }
+        .navbar {
+            padding: 1rem;
+            background-color: #f8d7da;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #721c24;
+        }
+        .nav-link {
+            color: #721c24;
+            margin: 0 10px;
+        }
+        .nav-link:hover {
+            color: #a73c45;
+        }
+        .resource-card {
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        .glossary-term {
+            font-weight: bold;
+            color: #d63384;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">🩺 Menstrual Health Tool</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tracker">Cycle Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis">Data Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/resources">Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1>📚 Educational Resources</h1>
+            <p class="lead">Understanding your menstrual health and fertility</p>
+        </div>
+
+        <!-- Educational Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-4">
+                <div class="card resource-card">
+                    <div class="card-body text-center">
+                        <div class="resource-icon">🔄</div>
+                        <h4>The Menstrual Cycle</h4>
+                        <p>Learn about the hormonal changes and phases of a typical menstrual cycle.</p>
+                        <button class="btn btn-outline-danger mt-2" data-bs-toggle="modal" data-bs-target="#cycleModal">Read More</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card resource-card">
+                    <div class="card-body text-center">
+                        <div class="resource-icon">🌱</div>
+                        <h4>Fertility Basics</h4>
+                        <p>Understand fertile windows, ovulation, and factors affecting conception.</p>
+                        <button class="btn btn-outline-danger mt-2" data-bs-toggle="modal" data-bs-target="#fertilityModal">Read More</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card resource-card">
+                    <div class="card-body text-center">
+                        <div class="resource-icon">⚕️</div>
+                        <h4>PCOD/PCOS</h4>
+                        <p>Information about Polycystic Ovary Syndrome, symptoms, and management strategies.</p>
+                        <button class="btn btn-outline-danger mt-2" data-bs-toggle="modal" data-bs-target="#pcodModal">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Frequently Asked Questions</h3>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne">
+                                What is a normal menstrual cycle length?
+                            </button>
+                        </h2>
+                        <div id="faqOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                A normal menstrual cycle typically ranges from 21 to 35 days, with the average being around 28 days. However, what's "normal" varies from person to person. It's more important to track what's normal for you, as consistency is more significant than the exact length.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo">
+                                How can I track my ovulation?
+                            </button>
+                        </h2>
+                        <div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                There are several ways to track ovulation:
+                                <ul>
+                                    <li>Calendar method: Track your cycle length and estimate ovulation (typically 14 days before your next period)</li>
+                                    <li>Basal body temperature: Your temperature rises slightly after ovulation</li>
+                                    <li>Cervical mucus: Changes in consistency throughout your cycle</li>
+                                    <li>Ovulation predictor kits: Detect hormone surges that signal ovulation</li>
+                                    <li>Fertility tracking apps: Combine various methods to predict your fertile window</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree">
+                                What are common signs of hormonal imbalance?
+                            </button>
+                        </h2>
+                        <div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Common signs of hormonal imbalance include:
+                                <ul>
+                                    <li>Irregular periods or missed periods</li>
+                                    <li>Heavy or painful periods</li>
+                                    <li>Unexplained weight gain or difficulty losing weight</li>
+                                    <li>Acne or other skin problems</li>
+                                    <li>Excess facial or body hair</li>
+                                    <li>Hair thinning or hair loss</li>
+                                    <li>Mood swings, irritability, or depression</li>
+                                    <li>Fatigue</li>
+                                    <li>Insomnia or poor sleep quality</li>
+                                </ul>
+                                If you experience several of these symptoms, consider consulting with a healthcare provider.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour">
+                                How can I manage period pain naturally?
+                            </button>
+                        </h2>
+                        <div id="faqFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Natural methods to manage period pain include:
+                                <ul>
+                                    <li>Heat therapy: Using a heating pad on your lower abdomen</li>
+                                    <li>Gentle exercise: Activities like walking, swimming, or yoga</li>
+                                    <li>Dietary changes: Reducing caffeine, salt, and sugar intake</li>
+                                    <li>Anti-inflammatory foods: Consuming omega-3 fatty acids, ginger, turmeric, and cinnamon</li>
+                                    <li>Staying hydrated: Drinking plenty of water</li>
+                                    <li>Relaxation techniques: Meditation, deep breathing, or gentle massage</li>
+                                    <li>Supplements: Magnesium, vitamin B1, or vitamin E (consult healthcare provider first)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glossary Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Menstrual Health Glossary</h3>
+            </div>
+            <div class="card-body">
+                <dl>
+                    <dt><span class="glossary-term">Amenorrhea</span></dt>
+                    <dd>The absence of menstruation - either not starting at puberty or stopping in a woman who has been having normal periods.</dd>
+                    
+                    <dt><span class="glossary-term">Dysmenorrhea</span></dt>
+                    <dd>Painful periods, including severe menstrual cramps.</dd>
+                    
+                    <dt><span class="glossary-term">Endometriosis</span></dt>
+                    <dd>A condition where tissue similar to the lining inside the uterus grows outside the uterus.</dd>
+                    
+                    <dt><span class="glossary-term">Follicular Phase</span></dt>
+                    <dd>The first half of the menstrual cycle when an egg-containing follicle grows and estrogen levels rise.</dd>
+                    
+                    <dt><span class="glossary-term">Luteal Phase</span></dt>
+                    <dd>The second half of the menstrual cycle following ovulation when the corpus luteum secretes progesterone.</dd>
+                    
+                    <dt><span class="glossary-term">Menopause</span></dt>
+                    <dd>The time in a woman's life when menstrual periods permanently stop, typically between ages 45 and 55.</dd>
+                    
+                    <dt><span class="glossary-term">Ovulation</span></dt>
+                    <dd>The release of an egg from an ovary during the menstrual cycle.</dd>
+                    
+                    <dt><span class="glossary-term">PCOS</span></dt>
+                    <dd>Polycystic Ovary Syndrome - a hormonal disorder causing enlarged ovaries with small cysts.</dd>
+                    
+                    <dt><span class="glossary-term">PMS</span></dt>
+                    <dd>Premenstrual Syndrome - a combination of symptoms that many women get about a week or two before their period.</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals for Educational Content -->
+    <!-- Menstrual Cycle Modal -->
+    <div class="modal fade" id="cycleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Understanding The Menstrual Cycle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>The Four Phases of the Menstrual Cycle</h4>
+                    
+                    <h5>1. Menstruation Phase (Days 1-5)</h5>
+                    <p>The cycle begins with menstruation, when the uterine lining sheds through the vagina if pregnancy doesn't occur. This phase typically lasts 3-7 days.</p>
+                    
+                    <h5>2. Follicular Phase (Days 1-13)</h5>
+                    <p>This phase overlaps with menstruation and continues until ovulation. The pituitary gland releases follicle-stimulating hormone (FSH), which stimulates the ovaries to produce follicles containing immature eggs. Usually, one follicle will become dominant and continue to maturity. During this time, the uterine lining thickens in preparation for a potential pregnancy.</p>
+                    
+                    <h5>3. Ovulation Phase (Day 14 in a 28-day cycle)</h5>
+                    <p>The ovary releases a mature egg, which travels down the fallopian tube toward the uterus. This is when you're most fertile. Ovulation is triggered by a surge in luteinizing hormone (LH). Some women may experience mild pain or spotting during ovulation.</p>
+                    
+                    <h5>4. Luteal Phase (Days 15-28)</h5>
+                    <p>After releasing the egg, the empty follicle transforms into the corpus luteum, which produces progesterone. This hormone helps thicken the uterine lining to prepare for a potential fertilized egg. If pregnancy doesn't occur, the corpus luteum breaks down, progesterone levels drop, and a new menstrual cycle begins.</p>
+                    
+                    <h4>Hormones Involved in the Menstrual Cycle</h4>
+                    <ul>
+                        <li><strong>Estrogen:</strong> Predominant in the follicular phase, thickens the uterine lining</li>
+                        <li><strong>Progesterone:</strong> Predominant in the luteal phase, prepares the uterus for pregnancy</li>
+                        <li><strong>Follicle-Stimulating Hormone (FSH):</strong> Stimulates follicle development</li>
+                        <li><strong>Luteinizing Hormone (LH):</strong> Triggers ovulation</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fertility Modal -->
+    <div class="modal fade" id="fertilityModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Fertility Basics</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Understanding Your Fertile Window</h4>
+                    <p>The fertile window is the time during your menstrual cycle when pregnancy is possible. It includes the day of ovulation (when an egg is released from the ovary) and the five days before. This is because sperm can survive in the female reproductive tract for up to 5 days, while the egg can only survive for 12-24 hours after ovulation.</p>
+                    
+                    <h4>Identifying Your Fertile Days</h4>
+                    <h5>Signs of Approaching Ovulation:</h5>
+                    <ul>
+                        <li><strong>Cervical Mucus Changes:</strong> As ovulation approaches, cervical mucus becomes clearer, stretchier, and more slippery (similar to egg whites).</li>
+                        <li><strong>Basal Body Temperature (BBT):</strong> Your BBT rises slightly (about 0.4 degrees Fahrenheit) after ovulation and remains elevated until your next period.</li>
+                        <li><strong>Mittelschmerz:</strong> Some women experience minor abdominal pain or cramping during ovulation.</li>
+                        <li><strong>Increased Sex Drive:</strong> Many women experience a heightened libido near ovulation.</li>
+                        <li><strong>Ovulation Predictor Kits:</strong> These detect the surge in luteinizing hormone (LH) that occurs 24-36 hours before ovulation.</li>
+                    </ul>
+                    
+                    <h4>Factors That Can Affect Fertility</h4>
+                    <ul>
+                        <li><strong>Age:</strong> Fertility naturally declines with age, particularly after 35 for women.</li>
+                        <li><strong>Weight:</strong> Being significantly underweight or overweight can affect hormone balance and ovulation.</li>
+                        <li><strong>Smoking:</strong> Can damage reproductive organs and lead to earlier menopause.</li>
+                        <li><strong>Alcohol Consumption:</strong> Excessive alcohol can disrupt menstrual cycles and reduce fertility.</li>
+                        <li><strong>Stress:</strong> High stress levels can affect hormone balance and potentially delay ovulation.</li>
+                        <li><strong>Medical Conditions:</strong> Conditions like PCOS, endometriosis, and thyroid disorders can impact fertility.</li>
+                        <li><strong>Environmental Factors:</strong> Exposure to certain chemicals and toxins may affect reproductive health.</li>
+                    </ul>
+                    
+                    <h4>Tips for Optimizing Fertility</h4>
+                    <ul>
+                        <li>Maintain a healthy weight and balanced diet</li>
+                        <li>Exercise moderately (excessive exercise can disrupt your cycle)</li>
+                        <li>Limit caffeine and alcohol consumption</li>
+                        <li>Quit smoking and avoid secondhand smoke</li>
+                        <li>Manage stress through meditation, yoga, or other relaxation techniques</li>
+                        <li>Track your cycle to identify your most fertile days</li>
+                        <li>Consider taking a prenatal vitamin with folic acid if trying to conceive</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PCOD/PCOS Modal -->
+    <div class="modal fade" id="pcodModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Understanding PCOD/PCOS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>What is PCOS/PCOD?</h4>
+                    <p>Polycystic Ovary Syndrome (PCOS) and Polycystic Ovarian Disease (PCOD) are hormonal disorders affecting women of reproductive age. While the terms are sometimes used interchangeably, they refer to similar conditions where the ovaries develop numerous small collections of fluid (follicles) and may fail to regularly release eggs.</p>
+                    
+                    <h4>Common Symptoms</h4>
+                    <ul>
+                        <li><strong>Irregular periods:</strong> Infrequent, irregular, or prolonged menstrual cycles</li>
+                        <li><strong>Excess androgen:</strong> Elevated levels of male hormones may result in physical signs, such as excess facial and body hair (hirsutism) and occasionally severe acne and male-pattern baldness</li>
+                        <li><strong>Polycystic ovaries:</strong> Ovaries might be enlarged and contain follicles that surround the eggs</li>
+                        <li><strong>Weight gain:</strong> About 80% of women with PCOS are overweight or obese</li>
+                        <li><strong>Infertility:</strong> PCOS is one of the most common causes of female infertility</li>
+                        <li><strong>Skin darkening:</strong> Particularly in neck creases, the groin, and underneath breasts</li>
+                        <li><strong>Skin tags:</strong> Small excess flaps of skin in the armpits or neck area</li>
+                    </ul>
+                    
+                    <h4>Causes and Risk Factors</h4>
+                    <p>The exact cause of PCOS is unknown, but factors that might play a role include:</p>
+                    <ul>
+                        <li><strong>Insulin resistance:</strong> Many women with PCOS have insulin resistance, meaning their bodies can't use insulin effectively</li>
+                        <li><strong>Low-grade inflammation:</strong> Studies have shown that women with PCOS have low-grade inflammation</li>
+                        <li><strong>Heredity:</strong> PCOS tends to run in families</li>
+                        <li><strong>Excess androgen:</strong> The ovaries produce abnormally high levels of androgen, preventing ovulation</li>
+                    </ul>
+                    
+                    <h4>Management and Treatment</h4>
+                    <p>While there's no cure for PCOS, treatments focus on managing individual concerns, such as infertility, hirsutism, acne, or obesity:</p>
+                    <ul>
+                        <li><strong>Lifestyle changes:</strong> Weight loss through a low-calorie diet combined with moderate exercise activities can help reduce symptoms and improve ovulation and insulin levels</li>
+                        <li><strong>Medications:</strong> Various medications can help regulate the menstrual cycle, reduce androgen levels, and clear acne</li>
+                        <li><strong>Birth control pills:</strong> These can decrease androgen production and regulate estrogen, reducing abnormal bleeding and lowering the risk of endometrial cancer</li>
+                        <li><strong>Insulin-sensitizing medications:</strong> These can help the body use insulin more efficiently</li>
+                        <li><strong>Fertility treatments:</strong> For women wanting to become pregnant, certain medications can help stimulate ovulation</li>
+                    </ul>
+                    
+                    <h4>Long-term Complications</h4>
+                    <p>PCOS is associated with increased risk of:</p>
+                    <ul>
+                        <li>Type 2 diabetes</li>
+                        <li>High blood pressure</li>
+                        <li>Heart disease and stroke</li>
+                        <li>Sleep apnea</li>
+                        <li>Depression and anxiety</li>
+                        <li>Endometrial cancer</li>
+                    </ul>
+                    
+                    <p><strong>Note:</strong> This information is for educational purposes only. Always consult with a healthcare provider for diagnosis and treatment of PCOS or any medical condition.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

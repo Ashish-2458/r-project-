@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menstrual Health Prediction Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            padding: 1rem;
+            background-color: #f8d7da;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #721c24;
+        }
+        .nav-link {
+            color: #721c24;
+            margin: 0 10px;
+        }
+        .nav-link:hover {
+            color: #a73c45;
+        }
+        .container {
+            max-width: 1000px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #d63384;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">🩺 Menstrual Health Tool</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tracker">Cycle Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis">Data Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/resources">Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1>🩺 Menstrual Health Prediction Tool</h1>
+            <p class="lead">Track your menstrual cycle and assess your reproductive health</p>
+        </div>
+
+        <!-- Feature Cards Section -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon">📊</div>
+                        <h4>Period Prediction</h4>
+                        <p>Predict your next period and track your menstrual cycle.</p>
+                        <a href="#cycle-tab" class="btn btn-outline-danger mt-2" data-bs-toggle="tab" data-bs-target="#cycle">Try Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon">📅</div>
+                        <h4>Fertility Tracking</h4>
+                        <p>Track your fertile window and ovulation days with our interactive calendar.</p>
+                        <a href="/tracker" class="btn btn-outline-danger mt-2">View Calendar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon">🔍</div>
+                        <h4>Health Assessment</h4>
+                        <p>Get personalized insights about your menstrual health and PCOD risk.</p>
+                        <a href="#health-tab" class="btn btn-outline-danger mt-2" data-bs-toggle="tab" data-bs-target="#health">Assess Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="cycle-tab" data-bs-toggle="tab" data-bs-target="#cycle" type="button" role="tab">Next Cycle Prediction</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="health-tab" data-bs-toggle="tab" data-bs-target="#health" type="button" role="tab">Health Assessment</button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3" id="myTabContent">
+            <!-- Next Cycle Prediction Form -->
+            <div class="tab-pane fade show active" id="cycle" role="tabpanel">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h4>Predict Your Next Period Start Date</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/predict_next_cycle" method="post">
+                            <div class="mb-3">
+                                <label for="last_period_date" class="form-label">Last Period Start Date</label>
+                                <input type="date" class="form-control" id="last_period_date" name="last_period_date" required>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="length_of_cycle" class="form-label">Length of Cycle (days)</label>
+                                    <input type="number" class="form-control" id="length_of_cycle" name="length_of_cycle" min="21" max="35" required>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="estimated_day_of_ovulation" class="form-label">Day of Ovulation</label>
+                                    <input type="number" class="form-control" id="estimated_day_of_ovulation" name="estimated_day_of_ovulation" min="12" max="16" required>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="length_of_luteal_phase" class="form-label">Luteal Phase (days)</label>
+                                    <input type="number" class="form-control" id="length_of_luteal_phase" name="length_of_luteal_phase" min="12" max="16" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="length_of_menses" class="form-label">Length of Period (days)</label>
+                                <input type="number" class="form-control" id="length_of_menses" name="length_of_menses" min="3" max="7" value="5" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Predict Next Cycle</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Assessment Form -->
+            <div class="tab-pane fade" id="health" role="tabpanel">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h4>Assess Your Menstrual Health</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/predict_health" method="post">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="health_length_of_cycle" class="form-label">Length of Cycle (days)</label>
+                                    <input type="number" class="form-control" id="health_length_of_cycle" name="length_of_cycle" min="21" max="35" required>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label for="health_estimated_day_of_ovulation" class="form-label">Day of Ovulation</label>
+                                    <input type="number" class="form-control" id="health_estimated_day_of_ovulation" name="estimated_day_of_ovulation" min="12" max="16" required>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label for="health_length_of_luteal_phase" class="form-label">Luteal Phase (days)</label>
+                                    <input type="number" class="form-control" id="health_length_of_luteal_phase" name="length_of_luteal_phase" min="12" max="16" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="number" class="form-control" id="age" name="age" min="12" max="55" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="length_of_menses" class="form-label">Length of Menses (days)</label>
+                                    <input type="number" class="form-control" id="length_of_menses" name="length_of_menses" min="3" max="7" required>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="unusual_bleeding" class="form-label">Unusual Bleeding</label>
+                                    <select class="form-select" id="unusual_bleeding" name="unusual_bleeding" required>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="bmi" class="form-label">BMI</label>
+                                    <input type="number" step="0.1" class="form-control" id="bmi" name="bmi" min="18.5" max="30" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="menses_score" class="form-label">Menses Discomfort Score (1-10)</label>
+                                <input type="range" class="form-range" id="menses_score" name="menses_score" min="1" max="10" value="5">
+                                <span class="form-text">1 = Minimal discomfort, 10 = Severe discomfort</span>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Assess Health</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4>What's New?</h4>
+                <p>We've enhanced our menstrual health platform with advanced features:</p>
+                <ul>
+                    <li><strong>Interactive Cycle Calendar:</strong> Visualize your periods, fertile windows, and ovulation days</li>
+                    <li><strong>Advanced Health Assessment:</strong> Get personalized recommendations based on your symptoms</li>
+                    <li><strong>Educational Resources:</strong> Learn about menstrual health, fertility, and common conditions</li>
+                    <li><strong>Data Insights:</strong> Explore patterns and statistics about menstrual health</li>
+                </ul>
+                <p>Explore all features using the navigation bar at the top of the page.</p>
+            </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <p class="text-muted"><small>This tool is for informational purposes only and should not replace professional medical advice.</small></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

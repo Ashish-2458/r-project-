@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis | Menstrual Health Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #6c757d;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #f8d7da;
+            color: #721c24;
+            font-weight: bold;
+            border-radius: 15px 15px 0 0 !important;
+        }
+        .stat-card {
+            background-color: #f1f8ff;
+            border-left: 5px solid #d63384;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-title {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #212529;
+        }
+        .plot-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .plot-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #d63384;
+        }
+        .plot-img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .back-btn {
+            background-color: #d63384;
+            border-color: #d63384;
+        }
+        .back-btn:hover {
+            background-color: #ab296a;
+            border-color: #ab296a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🩺 Menstrual Health Data Analysis</h1>
+            <p class="lead">Insights and visualizations from the dataset</p>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Dataset Summary</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-title">Total Records</div>
+                            <div class="stat-value">{{ stats.total_records }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-title">Average Cycle Length</div>
+                            <div class="stat-value">{{ stats.avg_cycle_length }} days</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-title">Average Ovulation Day</div>
+                            <div class="stat-value">Day {{ stats.avg_ovulation_day }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-title">Average Luteal Phase</div>
+                            <div class="stat-value">{{ stats.avg_luteal_phase }} days</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-title">Average Menses Length</div>
+                            <div class="stat-value">{{ stats.avg_menses_length }} days</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-title">Unusual Bleeding</div>
+                            <div class="stat-value">{{ stats.unusual_bleeding_percent }}%</div>
+                            <small>({{ stats.unusual_bleeding_count }} of {{ stats.total_records }} cases)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Data Visualizations</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for i in range(0, plots|length, 2) %}
+                        {% if i < plots|length %}
+                            <div class="col-md-6">
+                                <div class="plot-container">
+                                    <div class="plot-title">
+                                        {% if i == 0 %}
+                                            Cycle Length Distribution
+                                        {% elif i == 2 %}
+                                            BMI vs Cycle Length
+                                        {% elif i == 4 %}
+                                            Menses Score Distribution
+                                        {% endif %}
+                                    </div>
+                                    <img src="data:image/png;base64,{{ plots[i] }}" class="plot-img" alt="Plot">
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if i+1 < plots|length %}
+                            <div class="col-md-6">
+                                <div class="plot-container">
+                                    <div class="plot-title">
+                                        {% if i+1 == 1 %}
+                                            Correlation Heatmap
+                                        {% elif i+1 == 3 %}
+                                            Age vs Cycle Length
+                                        {% endif %}
+                                    </div>
+                                    <img src="data:image/png;base64,{{ plots[i+1] }}" class="plot-img" alt="Plot">
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Key Findings</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">The average menstrual cycle length is {{ stats.avg_cycle_length }} days, which falls within the normal range (21-35 days).</li>
+                    <li class="list-group-item">Ovulation typically occurs around day {{ stats.avg_ovulation_day }} of the cycle.</li>
+                    <li class="list-group-item">The correlation heatmap shows relationships between different menstrual parameters, helping identify patterns.</li>
+                    <li class="list-group-item">BMI appears to have some influence on cycle length, especially in higher ranges.</li>
+                    <li class="list-group-item">{{ stats.unusual_bleeding_percent }}% of records indicate unusual bleeding, which may warrant medical attention.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary back-btn">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
